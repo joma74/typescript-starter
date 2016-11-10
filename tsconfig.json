@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDirs": ["src","test"],
+    "outDir": "lib"
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules/**/",
+    "jspm_packages/**/"
+  ]
+}
