@@ -31,7 +31,7 @@
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
+/out/*
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -83,3 +83,4 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 /typings/
+/lib/*
