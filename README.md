@@ -5,9 +5,9 @@ Starter for Typescript featuring
 
 Setup
 =====
-Compiled JS files Target dir lib/*
-Tests are under src/test/*
-Module code is under src/main/*
+- Compiled JS files Target dir lib/*
+- Tests are under src/test/*
+- Module code is under src/main/*
 
 Test are done with mocha. Which integrates with commonjs
 - nodes's standard loader - quite nicely. Typescript is
