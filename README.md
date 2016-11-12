@@ -10,7 +10,7 @@ Setup
 - Module code is under src/main/*
 
 Test are done with mocha. Which integrates with commonjs
-- nodes's standard loader - quite nicely. Typescript is
+\- nodes's standard loader \- quite nicely. Typescript is
 therefore configured to generate commonjs loader
 ```js
 require("module");
