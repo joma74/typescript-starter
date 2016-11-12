@@ -3,29 +3,46 @@ Starter for Typescript featuring
 - unit testing
 - well, Typescript
 
-Setup
-=====
-- Compiled JS files Target dir lib/*
-- Tests are under src/test/*
-- Module code is under src/main/*
+# Source Organisation
+- Module source is under `src/main/*`
+- Test source is under `src/test/*`
+- Per Typescript compiled JS source is under `lib/*`
 
-Test are done with mocha. Which integrates with commonjs
-\- nodes's standard loader \- quite nicely. Typescript is
-therefore configured to generate commonjs loader
+# Test Integration
+Tests are done with *mocha*. Which integrates with *commonjs* \- nodes's standard loader \- quite nicely. Typescript is
+ therefore configured to generates ES 5 code for usage by a commonjs loader
 ```js
-require("module");
+var Calculator_1 = require("main/calculation/Calculator");
 ```
-Not so nice is node's api/standard to add another path to it's module lookup via require.
-This is solved for a Node environment by
-- `src/test/bootstrap.test.js` which add's the 'lib/' folder as an additional Node's root lookup path
-- `src/test/mocha.opts` which executes `src/test/bootstrap.test.js` before mocha and tests are loaded
+Not so nice is Node's api/standard to allow for adding another path to it's module lookup. This would be handy to make `require` work with non-relative module paths under development - which resembles the idea of a module reference *by id* more closely than that of a module reference *by path*.
 
-After checkout
-===============
+This is resolved for a Node environment by
+- `src/test/bootstrap.test.js` which add's the `lib/` folder as an additional Node's lookup root path
+- `src/test/mocha.opts` which executes `src/test/bootstrap.test.js` BEFORE mocha and tests. And hence before module imports are loaded.
+
+# NPM Run Description
+`watch:clean:tsc` runs watch on `src/**/*.ts`. On change it runs `clean:tsc`
+
+`clean:tsc` removes anything under `lib/*` and runs tsc*(typescript compiler)*
+
+`test` runs `mocha` with opts
+
+`tsc:trace` runs tsc with trace resolution log debugging on
+
+# After-Checkout Instructions
+```bash
 npm install
-npm run tsc:watch
+npm run watch:clean:tsc
 npm run test
+```
+# References
+- https://github.com/grncdr/npm-watch
+- https://github.com/patrick-steele-idem/app-module-path-node
+- https://github.com/typings/typings
+- https://mochajs.org/
+- https://www.typescriptlang.org/docs/handbook/compiler-options.html
+- https://www.typescriptlang.org/docs/handbook/module-resolution.html
+- http://wiki.commonjs.org/wiki/Modules
 
-TODO
-====
-- Investigate solution for cleanup of /lib dir before build
+# TODO
+- Code Coverage

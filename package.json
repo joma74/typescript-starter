@@ -2,12 +2,19 @@
   "name": "typescript-starter",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "lib/main/index.js",
+  "watch": {
+    "clean:tsc": {
+      "patterns": ["src"],
+      "extensions": "*",
+      "quiet": true
+    }
+  },
   "scripts": {
     "test": "mocha --opts src/test/mocha.opts",
-    "tsc": "tsc",
-    "tsc:watch": "tsc -w",
-    "tsc:watch:trace": "tsc -w --traceResolution"
+    "clean:tsc": "rm -rf lib/* && tsc",
+    "tsc:trace": "tsc --traceResolution",
+    "watch:clean:tsc": "npm-watch"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +22,7 @@
     "@types/node": "^6.0.46",
     "app-module-path": "^2.1.0",
     "mocha": "^3.1.2",
+    "npm-watch": "^0.1.6",
     "typescript": "^2.1.0-dev.20161110",
     "typings": "^2.0.0"
   },
