@@ -1,2 +1,3 @@
-lib/
 --recursive
+src/test/bootstrap.test.js
+lib/
