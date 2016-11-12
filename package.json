@@ -6,14 +6,20 @@
   "scripts": {
     "test": "mocha --opts src/test/mocha.opts",
     "tsc": "tsc",
-    "tsc:watch": "tsc -w --traceResolution"
+    "tsc:watch": "tsc -w",
+    "tsc:watch:trace": "tsc -w --traceResolution"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^6.0.46",
+    "app-module-path": "^2.1.0",
     "mocha": "^3.1.2",
     "typescript": "^2.1.0-dev.20161110",
     "typings": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.46"
+  }
 }

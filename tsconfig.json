@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "lib",
-    "moduleResolution": "node",
-    "rootDir": "src"
+    "module": "commonjs", // option to generate which module loader code
+    "moduleResolution": "node", // how tsc resolves module ids
+    "rootDir": "src", // everything UNDER EXCLUSIVE src is compiled into outDir
+    "outDir": "lib", // directory where .js files are compiled from .ts files
+    "baseUrl": "src" // enables to specify non-relative module ids rooted by "src"
   },
   "include": [
     "**/*"
   ],
   "exclude": [
-    "node_modules/**/",
-    "jspm_packages/**/",
+    "node_modules/**/", // do not peek into node_modules for ts definitions, use typings
+    "jspm_packages/**/", // do not peek into node_modules for ts definitions, use typings
     "lib/**/"
   ]
 }
