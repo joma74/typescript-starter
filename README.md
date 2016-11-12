@@ -15,9 +15,10 @@ therefore configured to generate commonjs loader
 ```js
 require("module");
 ```
-Not so nice is node's api/standard to add another path to
-for it's module lookup via require. See `Calculator.spec.ts`
-what has to be done.
+Not so nice is node's api/standard to add another path to it's module lookup via require.
+This is solved for a Node environment by
+- `src/test/bootstrap.test.js` which add's the 'lib/' folder as an additional Node's root lookup path
+- `src/test/mocha.opts` which executes `src/test/bootstrap.test.js` before mocha and tests are loaded
 
 After checkout
 ===============
@@ -27,5 +28,4 @@ npm run test
 
 TODO
 ====
-- Investigate solution for cleanup lib dir
-- Extract module lookup setup somewhere more common
+- Investigate solution for cleanup of /lib dir before build
