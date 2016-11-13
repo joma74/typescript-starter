@@ -21,19 +21,32 @@ This is resolved for a Node environment by
 - `src/test/mocha.opts` which executes `src/test/bootstrap.test.js` BEFORE mocha and tests. And hence before module imports are loaded.
 
 # NPM Run Description
-`watch:clean:tsc` runs watch on `src/**/*.ts`. On change it runs `clean:tsc`
+`build:compile` runs `build:clean` followed by `tsc:compile`
 
-`clean:tsc` removes anything under `lib/*` and runs tsc*(typescript compiler)*
+`build:clean` runs cleaning of tsc's outDir
 
-`test` runs `mocha` with opts
+`build:watch` runs watch on `src/*`. On watched changes it runs `build:compile`
 
-`tsc:trace` runs tsc with trace resolution log debugging on
+`coverage:report:open` opens the coverage report
+
+`init:typings` runs installation of typings
+
+`postinstall` runs `init:typings`
+
+`test:clean` runs cleaning of coverage directories
+
+`test:test` runs `test:clean`, then `nyc` coverage with `mocha` configured by `--opts`.
+
+`tsc:compile` runs `tsc`(*TypeScript Compiler*)
+
+`tsc:compile:trace` runs `tsc` with trace resolution log debugging on
+
 
 # After-Checkout Instructions
 ```bash
 npm install
-npm run watch:clean:tsc
-npm run test
+npm run build:watch
+npm run test:test
 ```
 # References
 - https://github.com/grncdr/npm-watch
@@ -43,6 +56,11 @@ npm run test
 - https://www.typescriptlang.org/docs/handbook/compiler-options.html
 - https://www.typescriptlang.org/docs/handbook/module-resolution.html
 - http://wiki.commonjs.org/wiki/Modules
+- https://istanbul.js.org/docs/tutorials/mocha/
+
+# NOTES
+- coverage of test sources `*.spec.ts` is currently included in the report. See TODO #2.
 
 # TODO
-- Code Coverage
+1. resolve `outDir` from `tsconfig.json` to be used by `mocha.opts` and `clean` task
+2. excluding `.spec.ts` from being covered via `nyc --exclude` gives strange results that merit an *nyc* issue investigation.

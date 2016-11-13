@@ -1,3 +1,4 @@
 --recursive
+--reporter list
 src/test/bootstrap.test.js
 lib/

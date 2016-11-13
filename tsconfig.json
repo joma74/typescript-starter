@@ -4,14 +4,15 @@
     "moduleResolution": "node", // how tsc resolves module ids
     "rootDir": "src", // everything UNDER EXCLUSIVE src is compiled into outDir
     "outDir": "lib", // directory where .js files are compiled from .ts files
-    "baseUrl": "src" // enables to specify non-relative module ids rooted by "src"
+    "baseUrl": "src", // enables to specify non-relative module ids rooted by "src"
+    "sourceMap": true
   },
   "include": [
     "**/*"
   ],
   "exclude": [
     "node_modules/**/", // do not peek into node_modules for ts definitions, use typings
-    "jspm_packages/**/", // do not peek into node_modules for ts definitions, use typings
+    "jspm_packages/**/", // do not peek into jspm_packages for ts definitions, use typings
     "lib/**/"
   ]
 }

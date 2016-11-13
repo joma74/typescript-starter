@@ -1,33 +1,43 @@
 {
   "name": "typescript-starter",
-  "version": "1.0.0",
+  "version": "1.0.0-SNAPSHOT-1",
   "description": "",
   "main": "lib/main/index.js",
+  "typings": "typings/index.d.ts",
   "watch": {
-    "clean:tsc": {
-      "patterns": ["src"],
+    "build:compile": {
+      "patterns": [
+        "src"
+      ],
       "extensions": "*",
       "quiet": true
     }
   },
   "scripts": {
-    "test": "mocha --opts src/test/mocha.opts",
-    "clean:tsc": "rm -rf lib/* && tsc",
-    "tsc:trace": "tsc --traceResolution",
-    "watch:clean:tsc": "npm-watch"
+    "build:compile": "npm run build:clean && npm run tsc:compile",
+    "build:clean": "rimraf lib/*",
+    "build:watch": "npm-watch",
+    "coverage:report:open": "opener coverage/index.html",
+    "init:typings": "typings install",
+    "postinstall": "npm run init:typings",
+    "test:clean": "rimraf coverage/* || rimraf .nyc_output/*  true",
+    "test:test": "npm run test:clean && nyc --reporter=html --reporter=text mocha --opts src/test/mocha.opts",
+    "tsc:compile": "tsc",
+    "tsc:compile:trace": "tsc --traceResolution"
   },
-  "author": "",
+  "author": "joma74@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^6.0.46",
     "app-module-path": "^2.1.0",
     "mocha": "^3.1.2",
     "npm-watch": "^0.1.6",
+    "nyc": "^8.4.0",
+    "opener": "^1.4.2",
+    "rimraf": "^2.5.4",
+    "ts-node": "^1.7.0",
     "typescript": "^2.1.0-dev.20161110",
     "typings": "^2.0.0"
   },
   "dependencies": {
-    "@types/mocha": "^2.2.32",
-    "@types/node": "^6.0.46"
   }
 }
