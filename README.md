@@ -63,4 +63,31 @@ npm run test:test
 
 # TODO
 1. resolve `outDir` from `tsconfig.json` to be used by `mocha.opts` and `clean` task
-2. excluding `.spec.ts` from being covered via `nyc --exclude` gives strange results that merit an *nyc* issue investigation.
+2. excluding `.spec.ts` from being covered via `nyc --exclude` gives strange results that merit an *nyc* issue report. See [Coverage Report](#Coverage-Report) next.
+
+##Coverage Report
+```bash
+joma@kopernikus-u:~/dev/nodews/typescript-starter-co$ npm run test:test
+
+> typescript-starter@1.0.0-SNAPSHOT-1 test:test /home/joma/entwicklung/nodews/typescript-starter-co
+> npm run test:clean && nyc --reporter=html --reporter=text mocha --opts src/test/mocha.opts
+
+
+> typescript-starter@1.0.0-SNAPSHOT-1 test:clean /home/joma/entwicklung/nodews/typescript-starter-co
+> rimraf coverage/* || rimraf .nyc_output/*  true
+
+
+  ․ Calculator #add should add two numbers together: 0ms
+
+  1 passing (8ms)
+
+---------------------|----------|----------|----------|----------|----------------|
+File                 |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+---------------------|----------|----------|----------|----------|----------------|
+All files            |    92.86 |       50 |      100 |    92.31 |                |
+ main/calculation    |      100 |      100 |      100 |      100 |                |
+  Calculator.ts      |      100 |      100 |      100 |      100 |                |
+ test/calculation    |    88.89 |       50 |      100 |    88.89 |                |
+  Calculator.spec.ts |    88.89 |       50 |      100 |    88.89 |             14 |
+---------------------|----------|----------|----------|----------|----------------|
+```
