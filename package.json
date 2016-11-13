@@ -38,6 +38,5 @@
     "typescript": "^2.1.0-dev.20161110",
     "typings": "^2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
