@@ -77,14 +77,16 @@ P.S. After the debugged program is exited a console message `Waiting for the deb
 - http://wiki.commonjs.org/wiki/Modules
 - https://istanbul.js.org/docs/tutorials/mocha/
 - https://nodejs.org/api/debugger.html
+- http://javascriptissexy.com/javascript-variable-scope-and-hoisting-explained/
 
 # NOTES
-- coverage of test sources `*.spec.ts` is currently included in the report. See TODO #2.
+- coverage of test sources `*.spec.ts` is currently included in the report, see [Coverage Report](#coverage-report). See TODO #2.
 
 # TODO
 1. resolve `outDir` from `tsconfig.json` to be used by `mocha.opts` and `clean` task
-2. excluding `.spec.ts` from being covered via `nyc --exclude` gives strange results that merit an *nyc* issue report. See [Coverage Report](#coverage-report) next
+2. excluding `.spec.ts` from being covered via `nyc --exclude` gives strange results that merit an *nyc* issue report.
 3. find out how to add *.ts files as source of sourceMaps to Chrome debugger
+4. despite of `let` the index variable `i` the array `namesOfCast[i]` of in `Varquirks.ts` quirkly again always resolves to 2, if `i` is not accessed otherwise - even by coding `i;` ?!
 
 ##Coverage Report
 ```bash
