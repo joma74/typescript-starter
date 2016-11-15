@@ -5,7 +5,9 @@
     "rootDir": "src", // everything UNDER EXCLUSIVE src is compiled into outDir
     "outDir": "lib", // directory where .js files are compiled from .ts files
     "baseUrl": "src", // enables to specify non-relative module ids rooted by "src"
-    "sourceMap": true
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "newLine": "LF"
   },
   "include": [
     "**/*"

@@ -1,4 +1,4 @@
-import {Point2D, Point3D, iTakePoint2D} from "../../main/interfaces/Point";
+import {Point2D, Point3D, iTakePoint2D} from "main/interfaces/Point";
 
 var assert = require('assert');
 describe('Point', () => {
