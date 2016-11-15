@@ -12,13 +12,12 @@ export function loopArrayInDelayedCallback_quirked() {
     fetchedCast = [];
     for (var i in namesOfCast) {
         _fetchCast(function () {
-            i;
             fetchedCast.push(namesOfCast[i]);
         })
     }
 }
 
-export function loopArrayInDelayedCallback_fixed() {
+export function loopArrayInDelayedCallback_fix_1() {
     var namesOfCast = ["Marty", "Melman", "Alex"];
     fetchedCast = [];
     for (let i in namesOfCast) { // with let a new i variable is created on each iteration
@@ -26,5 +25,17 @@ export function loopArrayInDelayedCallback_fixed() {
             i; // ?! if is this line is deleted, quirk behaviour is back !?
             fetchedCast.push(namesOfCast[i]);
         })
+    }
+}
+
+export function loopArrayInDelayedCallback_fix_2() {
+    var namesOfCast = ["Marty", "Melman", "Alex"];
+    fetchedCast = [];
+    for (var i in namesOfCast) {
+        (function (_i) { // a function expression delivers a new scope
+            _fetchCast(function () {
+                fetchedCast.push(namesOfCast[_i]);
+            })
+        })(i);
     }
 }
