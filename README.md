@@ -48,7 +48,7 @@ npm run test:test
 ```
 
 # Debug instructions
-For Intellij users a shared run configurations are checked in. See for example `.idea/runConfigurations/Calculator_Suite_Run.xml`. This enables breakpoints in the `*.ts` files of `test` and `main`, as both sources are compiled with sourceMap support. Note that one has to specify the transpiled `*.js` program versions. For example to run/debug the Calculator suite in mocha the file `lib/test/calculation/Calculator.spec.js` has be be defined as "test file" option of IntelliJ`s "Calculator Suite Run".
+For Intellij users shared run configurations are checked in. See for example `.idea/runConfigurations/Calculator_Suite_Run.xml`. This enables breakpoints in the `*.ts` files of `test` and `main`, as both sources are compiled with sourceMap support. Note that one has to specify the transpiled `*.js` program versions. For example to run/debug the Calculator suite in mocha the file `lib/test/calculation/Calculator.spec.js` has be be defined as "test file" option of IntelliJ`s "Calculator Suite Run".
 
 For command-line users initialising a debugging session of the above "Calculator Suite" can be started with
 ```bash

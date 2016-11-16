@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Validators Suite Run" type="mocha-javascript-test-runner" factoryName="Mocha">
-    <node-interpreter>$PROJECT_DIR$/../../programme/node-v6.5.0-linux-x64/bin/node</node-interpreter>
+    <node-interpreter>project</node-interpreter>
     <node-options />
     <working-directory>$PROJECT_DIR$</working-directory>
     <pass-parent-env>true</pass-parent-env>
