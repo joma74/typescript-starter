@@ -4,6 +4,16 @@
   "description": "",
   "main": "lib/main/index.js",
   "typings": "typings/index.d.ts",
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text"
+    ]
+  },
   "watch": {
     "build:compile": {
       "patterns": [
@@ -21,7 +31,7 @@
     "init:typings": "typings install",
     "postinstall": "npm run init:typings",
     "test:clean": "rimraf coverage/* || rimraf .nyc_output/*  true",
-    "test:test": "npm run test:clean && nyc --reporter=html --reporter=text mocha --opts src/test/mocha.opts",
+    "test:test": "npm run test:clean && nyc mocha --opts src/test/mocha.opts",
     "tsc:compile": "tsc",
     "tsc:compile:trace": "tsc --traceResolution"
   },
