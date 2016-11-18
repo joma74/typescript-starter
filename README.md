@@ -75,16 +75,25 @@ After the debugged program is exited a console message `Waiting for the debugger
 - http://wiki.commonjs.org/wiki/Modules
 - https://istanbul.js.org/docs/tutorials/mocha/
 - https://nodejs.org/api/debugger.html
-- http://javascriptissexy.com/javascript-variable-scope-and-hoisting-explained/
+- https://github.com/getify/You-Dont-Know-JS
 
 # NOTES
+## Iteration of arrays
+Despite of `for (let i in namesOfCast)` the index variable `i` in the array `namesOfCast[i]` of `Varquirks.ts#loopArrayInDelayedCallback_fix_1_forIn` quirkly again always resolves to 2. As soon as `i` is accessed otherwise - even by coding `i;` or `console.log(i);` - the scoping behaviour of `let` is restored! Community says that `for...in` should be used only for objects, not arrays. For arrays rather use
+- `for...of`
+- `forEach(..)`
+- `every(..)`
+- `some(..)`
+- standard `for` loops
+
+`Varquirks.ts#loopArrayInDelayedCallback_fix_2_forOf`, `Varquirks.ts#loopArrayInDelayedCallback_fix_3_forEach` and `Varquirks.ts#loopArrayInDelayedCallback_fix_4_every` show that those work quirklessly.
 
 # TODO
-1. resolve `outDir` from `tsconfig.json` to be used by `mocha.opts` and `clean` task
-3. find out how to add `*.ts` files as source of sourceMaps to Chrome debugger
-4. despite of `let` the index variable `i` in the array `namesOfCast[i]` of `Varquirks.ts` quirkly again always resolves to 2. As soon as `i` is accessed otherwise - even by coding `i;` or `console.log(i);` - the scoping behaviour of `let` is restored!
+1. Resolve `outDir` from `tsconfig.json` to be used by `mocha.opts` and `clean` task
+3. Find out how to add `*.ts` files as source of sourceMaps to Chrome debugger
 
-##Coverage Report
+
+##Test and Coverage Report
 ```bash
 /home/joma/dev/programme/node-v6.5.0-linux-x64/bin/node /home/joma/dev/programme/node-v6.5.0-linux-x64/lib/node_modules/npm/bin/npm-cli.js run-script test:test
 
@@ -99,13 +108,16 @@ After the debugged program is exited a console message `Waiting for the debugger
   ․ Calculator #add should add two numbers together: 0ms
   ․ Point #iTakePoint2D should accept type Point2D: 0ms
   ․ Point #iTakePoint2D should accept duck type Point3D: 0ms
-  ․ Varquirks #loopArrayInDelayedCallback_quirked should quirk fetch any fetchedCast to Alex: 502ms
-  ․ Varquirks #loopArrayInDelayedCallback_fix_1 should fetch any fetchedCast to it´s cast: 752ms
-  ․ Varquirks #loopArrayInDelayedCallback_fix_2 should fetch any fetchedCast to it´s cast: 752ms
+  ․ Varquirks #loopArrayInDelayedCallback_quirked should quirkly fetch any fetchedCast to Alex: 503ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_1_forIn should fetch any fetchedCast to it´s cast: 503ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_2_forOf should fetch any fetchedCast to it´s cast: 502ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_3_forEach should fetch any fetchedCast to it´s cast: 502ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_4_every should fetch any fetchedCast to it´s cast: 502ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_5_IFFE should fetch any fetchedCast to it´s cast: 502ms
   ․ ZipCodeValidator #isAcceptable should accept valid american zipcode: 1ms
   ․ ZipCodeValidator #isAcceptable should not accept invalid american zipcode: 0ms
 
-  8 passing (2s)
+  11 passing (3s)
 
 File [/home/joma/entwicklung/nodews/typescript-starter/lib/main/validation/StringValidator.js] ignored, nothing could be mapped
 ----------------------|----------|----------|----------|----------|----------------|
