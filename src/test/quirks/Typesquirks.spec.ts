@@ -1,4 +1,4 @@
-import {reverseStringNaive, reverseStringEsrevre, numbersWithinEpsilon} from "main/quirks/Typesquirks";
+import {reverseStringNaive, reverseStringEsrever, numbersWithinEpsilon} from "main/quirks/Typesquirks";
 
 var assert = require('assert');
 
@@ -16,15 +16,15 @@ describe('Typesquirks', () => {
             assert.equal(actual, expected);
         });
     });
-    describe('#reverseStringEsrevre', () => {
+    describe('#reverseStringEsrever', () => {
         it('should reverse a spanish unicode string', () => {
             let candidate: string = "mañana mañana";
-            let actual: string = reverseStringEsrevre(candidate);
+            let actual: string = reverseStringEsrever(candidate);
             assert.equal(actual, "anañam anañam");
         });
         it('should reverse a german-chinese unicode string', () => {
             let candidate: string = "hällö 𝌆 duriÖ";
-            let actual: string = reverseStringEsrevre(candidate);
+            let actual: string = reverseStringEsrever(candidate);
             assert.equal(actual, "Öirud 𝌆 ölläh");
         });
     });

@@ -1,15 +1,19 @@
-import * as esrever from "esrever";
+/**
+ * import * as esrever from "esrever"; => error TS2307: Cannot find module 'esrever'.
+ * See https://github.com/Microsoft/TypeScript/issues/2242#issuecomment-92218146 -> `import...` is disallowed for non-exporting JS libraries.
+ */
+
+let esrever = require("esrever");
 
 export function numbersWithinEpsilon(n1, n2) {
-    return Math.abs( n1 - n2 ) < Number.EPSILON;
+    return Math.abs(n1 - n2) < Number.EPSILON;
 }
-
 
 export function reverseStringNaive(reversable: string): string {
     return reversable.split('').reverse().join('');
 }
 
-export function reverseStringEsrevre(reversable: string): string {
+export function reverseStringEsrever(reversable: string): string {
     return esrever.reverse(reversable);
 }
 
