@@ -30,4 +30,3 @@ export function getObject({
     };
     return returnObject;
 }
-

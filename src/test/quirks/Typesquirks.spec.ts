@@ -45,4 +45,29 @@ describe('Typesquirks', () => {
             assert.equal(b, "oof");
         });
     });
+    describe('NumberCases', () => {
+        it('isNaN', () => {
+            let dividend = 2;
+            let divisor: any = "foo";
+            let quotient = dividend / divisor;
+            assert.ok(isNaN(quotient));
+            // in ES6, Number.isNaN() should be used
+        });
+        it('NaN is never equal to itself', () => {
+            let dividend = 2;
+            let divisor: any = "foo";
+            let quotient_1 = dividend / divisor;
+            let quotient_2 = dividend / divisor;
+            assert.ok(quotient_1 != quotient_2);
+            assert.ok(quotient_1 !== quotient_2);
+        });
+        it('isNaN_quirked', () => {
+            var b: any = "foo";
+            assert.ok(isNaN(b));
+        });
+        it('-0 and +0 zeros', () => {
+            assert.ok(-0 == 0);
+            assert.ok(-0 === 0);
+        });
+    });
 });
