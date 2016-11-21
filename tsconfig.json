@@ -13,7 +13,7 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "newLine": "LF",
-    "target": "es6"
+    "target": "es5"
   },
   "include": [
     "**/*"

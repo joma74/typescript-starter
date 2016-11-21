@@ -17,3 +17,17 @@ export function reverseStringEsrever(reversable: string): string {
     return esrever.reverse(reversable);
 }
 
+export function getObject({
+    c, d
+}:{
+    c: number, d: string
+}): {
+    a: number, b: string
+} {
+    let returnObject = {
+        a: parseInt(esrever.reverse(""+c)),
+        b: esrever.reverse(d)
+    };
+    return returnObject;
+}
+

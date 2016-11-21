@@ -1,4 +1,4 @@
-import {reverseStringNaive, reverseStringEsrever, numbersWithinEpsilon} from "main/quirks/Typesquirks";
+import {reverseStringNaive, reverseStringEsrever, numbersWithinEpsilon, getObject} from "main/quirks/Typesquirks";
 
 var assert = require('assert');
 
@@ -36,6 +36,13 @@ describe('Typesquirks', () => {
         it('should compare two small floats within Number.EXPSILON', () => {
             let actual: number = 0.1 + 0.2;
             assert.ok(numbersWithinEpsilon(actual, 0.3));
+        });
+    });
+    describe('#getObject', () => {
+        it('should destructure', () => {
+            let {a, b} = getObject({c: 42, d: "foo"});
+            assert.equal(a, 24);
+            assert.equal(b, "oof");
         });
     });
 });
