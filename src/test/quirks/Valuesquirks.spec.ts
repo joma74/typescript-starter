@@ -1,21 +1,21 @@
 var assert = require('assert');
 
 describe('Valuesquirks', () => {
-    it('#1 scalar primitives like number are always value-copy', () => {
+    it('#1 Scalar primitives like number are always value-copy', () => {
+        // scalar primitives are null, undefined, string, number, boolean, ES6's symbol.
         var a = 2;
         var b = a;
         b++;
         assert.equal(a, 2);
         assert.equal(b, 3);
-        // scalar primitives are null, undefined, string, number, boolean, ES6's symbol.
     });
-    it('#2 compound values like array are always reference-copy', () => {
+    it('#2 Compound values like array are always reference-copy', () => {
+        // compound values are objects and functions.
         var c = [1, 2, 3]; // arrays are objects
         var d = c;
         d.push(4);
         assert.deepStrictEqual(c, [1, 2, 3, 4]); // so compare arrays either by deepEqual or deepStrictEqual
         assert.deepStrictEqual(d, [1, 2, 3, 4]);
-        // compound values are objects and functions.
     });
     it('#2.1 array may be shallow value-copied via slice', () => {
         var c = [1, 2, 3];
@@ -24,7 +24,7 @@ describe('Valuesquirks', () => {
         assert.deepStrictEqual(c, [1, 2, 3]);
         assert.deepStrictEqual(d, [1, 2, 3, 4]);
     });
-    it('#3 variables are references, not pointers', () => {
+    it('#3 Variables are references, not pointers', () => {
         function foo(x) {
             x.push(4);
             // later
@@ -69,25 +69,42 @@ describe('Valuesquirks', () => {
     });
     it('#6 evaluate typeness of primitive object wrappers', () => {
         let a = new String("abc");
-        assert.ok(a instanceof String);
+        assert.equal(typeof a, "object");
         assert.ok(a instanceof Object);
+        assert.ok(a instanceof String);
         assert.ok(!(a instanceof Number));
         assert.equal(Object.prototype.toString.call(a), "[object String]"); //  Compound values are tagged with an
         // internal [[Class]] property. This property cannot be accessed directly, but can generally be revealed
-        // indirectly by borrowing this default method against the value.
+        // indirectly by borrowing the default `Object.prototype.toString` method against the value.
     });
-    it('#7 Unboxing of primitive object wrappers', () => {
+    it('#7.1 Boxing wrappers provide prototype extension functions', () => {
+        let a = "abc";
+        assert.equal(a.length, 3);  // Primitive values don't have properties or methods, so to access .length or
+        // .toString() you need an object wrapper around the value. Thankfully, JS will automatically box (aka wrap)
+        // the primitive value to fulfill such accesses.
+        assert.equal(a.toUpperCase(), "ABC");
+    });
+    it('#7.2 Boxing wrappers gotchas', () => {
+        let a: any = "abc";
+        assert.equal(typeof a, "string");
+        assert.ok(!(a instanceof String));
+        let b = Object(a);
+        assert.equal(typeof b, "object");
+        assert.ok(b instanceof String);
+        assert.equal(Object.prototype.toString.call(a), "[object String]");
+    });
+    it('#7.3 Unboxing of primitive object wrappers', () => {
         let a = new String("abc");
-        var b = new Number(42);
-        var c = new Boolean(true);
         assert.ok(a !== "abc");
         assert.ok(a.valueOf() === "abc");
+        let b = new Number(42);
         assert.ok(b !== 42);
         assert.ok(b.valueOf() === 42);
+        let c = new Boolean(true);
         assert.ok(c !== true);
         assert.ok(c.valueOf() === true);
     });
-    it('#8 Constructors and equivalence', () => {
+    it('#8.1 new Object()/Function()/Array()/Regex() and their equivalent literal form', () => {
         let o1: any = new Object() // o1:any, else "TS2339: Property 'foo' does not exist on type 'Object'".
         o1.foo = "bar";
         let o2 = {foo: "bar"};
@@ -98,5 +115,26 @@ describe('Valuesquirks', () => {
             return a * 2;
         };
         assert.equal(f1(4), f2(4));
+
+        let d1 = new Array(1, 2, 3);
+        let d2 = [1, 2, 3];
+        assert.deepStrictEqual(d1, d2);
+
+        let e1 = new RegExp("^a*b+", "g");
+        let e2 = /^a*b+/g;
+        assert.ok("aaaaabcdef".match(e1));
+        assert.ok("aaaaabcdef".match(e1));
+    });
+    it('#8.2 new Date()/Error() have no equivalent literal form', () => {
+        let timesInMilliSecondsAsInt = new Date().getTime();
+        assert.equal(typeof timesInMilliSecondsAsInt, "number");
+        assert.ok(timesInMilliSecondsAsInt > 0);
+
+        let errorWithStackTrace = new Error("sth failed");
+        assert.ok(errorWithStackTrace.stack.length  > 0);
+    });
+    it('#8.3 without new they work as coercion', () => {
+        let timesInMilliSecondsAsString = Date();
+        assert.equal(typeof timesInMilliSecondsAsString, "string");
     });
 });

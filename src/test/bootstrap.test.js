@@ -12,3 +12,12 @@
  * Needless to say that those calls must be done BEFORE  the loading/import of the first module.
  */
 require('app-module-path').addPath(process.cwd() + "/lib")
+/**
+ * Regex for filtering test assets, excluding any files ending with .ts or .js
+ * @type {{filter: RegExp}}
+ */
+let options = {filter: /^[A-Za-z\-\/]*(\.ts|\.js$)/ }
+/**
+ * copying of test assets
+ */
+require('ncp').ncp(process.cwd() + "/src/test", process.cwd() + "/lib/test", options)

@@ -40,6 +40,7 @@
   "devDependencies": {
     "app-module-path": "^2.1.0",
     "mocha": "^3.1.2",
+    "ncp": "^2.0.0",
     "npm-watch": "^0.1.6",
     "nyc": "^9.1.0",
     "opener": "^1.4.2",
