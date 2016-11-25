@@ -13,11 +13,7 @@
  */
 require('app-module-path').addPath(process.cwd() + "/lib")
 /**
- * Regex for filtering test assets, excluding any files ending with .ts or .js
- * @type {{filter: RegExp}}
+ * copying of test assets, filter is in "glob style"
+ * - for "glob style" see https://www.npmjs.com/package/glob)
  */
-let options = {filter: /^[A-Za-z\-\/]*(\.ts|\.js$)/ }
-/**
- * copying of test assets
- */
-require('ncp').ncp(process.cwd() + "/src/test", process.cwd() + "/lib/test", options)
+require('cpx').copySync(process.cwd() + "/src/test/**/*.json", process.cwd() + "/lib/test");
