@@ -9,7 +9,7 @@ describe('Valuesquirks', () => {
         assert.equal(a, 2);
         assert.equal(b, 3);
     });
-    it('#2 Compound values like array are always reference-copy', () => {
+    it('#2.1 Compound values like array are always reference-copy', () => {
         // compound values are objects and functions.
         var c = [1, 2, 3]; // arrays are objects
         var d = c;
@@ -17,7 +17,7 @@ describe('Valuesquirks', () => {
         assert.deepStrictEqual(c, [1, 2, 3, 4]); // so compare arrays either by deepEqual or deepStrictEqual
         assert.deepStrictEqual(d, [1, 2, 3, 4]);
     });
-    it('#2.1 array may be shallow value-copied via slice', () => {
+    it('#2.2 array may be shallow value-copied via slice', () => {
         var c = [1, 2, 3];
         var d = c.slice();
         d.push(4);
@@ -51,23 +51,23 @@ describe('Valuesquirks', () => {
         assert.equal(null, null);
         assert.equal(undefined, undefined);
     });
-    it('#5.1 use null as an empty value', () => {
+    it('#6.1 use null as an empty value', () => {
         let a = 1;
         assert.equal(a, 1);
         a = null;
         assert.equal(a, null);
     });
-    it('#5.2 use undefined as a missing value', () => {
+    it('#6.2 use undefined as a missing value', () => {
         let a;
         assert.equal(a, undefined);
         a = 1;
         assert.equal(a, 1);
     });
-    it('#5.3 void "voids" any value to undefined', () => {
+    it('#6.3 void "voids" any value to undefined', () => {
         let a = 42;
         assert.equal(void a, undefined);
     });
-    it('#6 evaluate typeness of primitive object wrappers', () => {
+    it('#7 evaluate typeness of primitive object wrappers', () => {
         let a = new String("abc");
         assert.equal(typeof a, "object");
         assert.ok(a instanceof Object);
@@ -77,14 +77,14 @@ describe('Valuesquirks', () => {
         // internal [[Class]] property. This property cannot be accessed directly, but can generally be revealed
         // indirectly by borrowing the default `Object.prototype.toString` method against the value.
     });
-    it('#7.1 Boxing wrappers provide prototype extension functions', () => {
+    it('#8.1 Boxing wrappers provide prototype extension functions', () => {
         let a = "abc";
         assert.equal(a.length, 3);  // Primitive values don't have properties or methods, so to access .length or
         // .toString() you need an object wrapper around the value. Thankfully, JS will automatically box (aka wrap)
         // the primitive value to fulfill such accesses.
         assert.equal(a.toUpperCase(), "ABC");
     });
-    it('#7.2 Boxing wrappers gotchas', () => {
+    it('#8.2 Boxing wrappers gotchas', () => {
         let a: any = "abc";
         assert.equal(typeof a, "string");
         assert.ok(!(a instanceof String));
@@ -93,7 +93,7 @@ describe('Valuesquirks', () => {
         assert.ok(b instanceof String);
         assert.equal(Object.prototype.toString.call(a), "[object String]");
     });
-    it('#7.3 Unboxing of primitive object wrappers', () => {
+    it('#8.3 Unboxing of primitive object wrappers', () => {
         let a = new String("abc");
         assert.ok(a !== "abc");
         assert.ok(a.valueOf() === "abc");
@@ -104,7 +104,7 @@ describe('Valuesquirks', () => {
         assert.ok(c !== true);
         assert.ok(c.valueOf() === true);
     });
-    it('#8.1 new Object()/Function()/Array()/Regex() and their equivalent literal form', () => {
+    it('#9.1 new Object()/Function()/Array()/Regex() and their equivalent literal form', () => {
         let o1: any = new Object() // o1:any, else "TS2339: Property 'foo' does not exist on type 'Object'".
         o1.foo = "bar";
         let o2 = {foo: "bar"};
@@ -125,7 +125,7 @@ describe('Valuesquirks', () => {
         assert.ok("aaaaabcdef".match(e1));
         assert.ok("aaaaabcdef".match(e1));
     });
-    it('#8.2 new Date()/Error() have no equivalent literal form', () => {
+    it('#9.2 new Date()/Error() have no equivalent literal form', () => {
         let timesInMilliSecondsAsInt = new Date().getTime();
         assert.equal(typeof timesInMilliSecondsAsInt, "number");
         assert.ok(timesInMilliSecondsAsInt > 0);
@@ -133,8 +133,12 @@ describe('Valuesquirks', () => {
         let errorWithStackTrace = new Error("sth failed");
         assert.ok(errorWithStackTrace.stack.length  > 0);
     });
-    it('#8.3 without new they work as coercion', () => {
+    it('#9.3 without new they work as coercion', () => {
         let timesInMilliSecondsAsString = Date();
         assert.equal(typeof timesInMilliSecondsAsString, "string");
+    });
+     it('#10 1/0 is Infinity', () => {
+        let infinity = 1/0;
+        assert.equal(infinity, Infinity);
     });
 });

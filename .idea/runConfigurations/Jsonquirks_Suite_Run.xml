@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CoercionQuirks_ToNumber" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
+  <configuration default="false" name="Jsonquirks Suite Run" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
     <node-interpreter>project</node-interpreter>
     <node-options />
     <working-directory>$PROJECT_DIR$</working-directory>
@@ -8,9 +8,9 @@
     <ui>bdd</ui>
     <extra-mocha-options>--opts src/test/mocha.opts</extra-mocha-options>
     <test-kind>SUITE</test-kind>
-    <test-file>$PROJECT_DIR$/lib/test/quirks/CoercionQuirks_ToNumber.spec.js</test-file>
+    <test-file>$PROJECT_DIR$/lib/test/quirks/Jsonquirks.spec.js</test-file>
     <test-names>
-      <name value="CoercionQuirks#ToNumber#Of[object ...]" />
+      <name value="Jsonquirks" />
     </test-names>
     <method />
   </configuration>
