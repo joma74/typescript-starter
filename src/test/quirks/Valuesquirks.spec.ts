@@ -131,14 +131,17 @@ describe('Valuesquirks', () => {
         assert.ok(timesInMilliSecondsAsInt > 0);
 
         let errorWithStackTrace = new Error("sth failed");
-        assert.ok(errorWithStackTrace.stack.length  > 0);
+        assert.ok(errorWithStackTrace.stack.length > 0);
+    });
+    it('#9.3 null/undefined have no equivalent literal form', () => {
+        //The null and undefined values cannot be boxed -- they have no object wrapper equivalent -- so Object(null) is just like Object() in that both just produce a normal object.
     });
     it('#9.3 without new they work as coercion', () => {
         let timesInMilliSecondsAsString = Date();
         assert.equal(typeof timesInMilliSecondsAsString, "string");
     });
-     it('#10 1/0 is Infinity', () => {
-        let infinity = 1/0;
+    it('#10 1/0 is Infinity', () => {
+        let infinity = 1 / 0;
         assert.equal(infinity, Infinity);
     });
 });

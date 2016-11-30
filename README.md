@@ -108,17 +108,86 @@ Despite of `for (let i in namesOfCast)` the index variable `i` in the array `nam
   ․ Calculator #add should add two numbers together: 0ms
   ․ Point #iTakePoint2D should accept type Point2D: 0ms
   ․ Point #iTakePoint2D should accept duck type Point3D: 0ms
-  ․ Varquirks #loopArrayInDelayedCallback_quirked should quirkly fetch any fetchedCast to Alex: 503ms
-  ․ Varquirks #loopArrayInDelayedCallback_fix_1_forIn should fetch any fetchedCast to it´s cast: 503ms
-  ․ Varquirks #loopArrayInDelayedCallback_fix_2_forOf should fetch any fetchedCast to it´s cast: 502ms
+  ․ CoercionQuirks#Boolean #1.1 undefined is contained in falsy list: 0ms
+  ․ CoercionQuirks#Boolean #1.2 null is contained in falsy list: 0ms
+  ․ CoercionQuirks#Boolean #1.3 false is contained in falsy list: 0ms
+  ․ CoercionQuirks#Boolean #1.4 +0/-0 is contained in falsy list, undefined: 0ms
+  ․ CoercionQuirks#Boolean #1.5 NaN is contained in falsy list: 0ms
+  ․ CoercionQuirks#Boolean #1.6 "" is contained in falsy list: 0ms
+  ․ CoercionQuirks#Boolean #2 to boolean via unary operator !: 0ms
+  ․ CoercionQuirks#Boolean #3.1 to boolean impicit via if: 0ms
+  ․ CoercionQuirks#Boolean #3.2 to boolean impicit via while: 0ms
+  ․ CoercionQuirks#Boolean #4 Yikes, && and || produced value will be one of the two operand expression!: 0ms
+  ․ CoercionQuirks#Date #1 explicit to number via unary: 1ms
+  ․ CoercionQuirks#Date #2 explicit to number via getTime(): 0ms
+  ․ CoercionQuirks#String&Number #1.1 to number via any numeric operation EXCEPT +: 0ms
+  ․ CoercionQuirks#String&Number #1.2 to number via native constructor: 0ms
+  ․ CoercionQuirks#String&Number #1.3 to number via native constructor fails with NaN on non-numeric characters: 0ms
+  ․ CoercionQuirks#String&Number #1.4 to number via parseInt: 0ms
+  ․ CoercionQuirks#String&Number #1.5 to number via unary operator +: 0ms
+  ․ CoercionQuirks#String&Number #1.6.1 to number via bitwise | (ToInt32) conversion: 0ms
+  ․ CoercionQuirks#String&Number #1.6.2 to number via bitwise ~ (ToInt32) conversion: 0ms
+  ․ CoercionQuirks#String&Number #1.6.3 ~ conversion of sentinel numbers transform to appropriately boolean-coercible: 1ms
+  ․ CoercionQuirks#String&Number #1.7 ~ octal parseInt with leading 0-s yiked pre ES5: 0ms
+  ․ CoercionQuirks#String&Number #8.1 to string via native constructors: 0ms
+  ․ CoercionQuirks#String&Number #8.2 to string of [object Array] via concatenation operator +: 0ms
+  ․ CoercionQuirks#String&Number #8.3 to string of integer primitive via concatenation operator +: 0ms
+  ․ CoercionQuirks#String&Number #8.4 to string via var object wrapper: 0ms
+  ․ CoercionQuirks#[object ...] #1 with [object Array] toString yields "i0,i1,..": 0ms
+  ․ CoercionQuirks#[object ...] #2 with [object Object] override valueOf and result is primitive: 0ms
+  ․ CoercionQuirks#[object ...] #3.1 with [object Object] override valueOf is not primitive and toString  result is primitive: 0ms
+  ․ CoercionQuirks#[object ...] #3.2 with [object Object] override toString and result is primitive: 0ms
+  ․ CoercionQuirks#[object ...] #4 with [object Array] override toString and result is primitive: 0ms
+  ․ CoercionQuirks#[object ...] #5.1 when not any coercible primitive is found, throw TypeError: 0ms
+  ․ CoercionQuirks#[object ...] #5.2 when not any coercible primitive is found, throw TypeError: 0ms
+  ․ Jsonquirks #1.1 not-JSON-safes to undefined: 0ms
+  ․ Jsonquirks #1.2 not-JSON-safes in arrays to null or omitted: 0ms
+  ․ Jsonquirks #2 dequirk not-JSON-safes and circular refs with .toJson(): 0ms
+  ․ Jsonquirks #3.1 JSON replacer with inclusion per property name array: 1ms
+  ․ Jsonquirks #3.2 JSON replacer with function: 0ms
+  ․ Jsonquirks #4.1 JSON prettyPrint with 3 spaces: 0ms
+  ․ Jsonquirks #4.2 JSON prettyPrint with tabs: 0ms
+  ․ TruthyFalsyquirks #1 Scalar primitives like number are always value-copy: 0ms
+  ․ Typesquirks #reverseStringNaive should quirkly reverse a spanish unicode string: 1ms
+  ․ Typesquirks #reverseStringNaive should quirkly reverse a german-chinese unicode string: 0ms
+  ․ Typesquirks #reverseStringEsrever should reverse a spanish unicode string: 0ms
+  ․ Typesquirks #reverseStringEsrever should reverse a german-chinese unicode string: 0ms
+  ․ Typesquirks #compareTwoFloats should quirkly compare two small floats: 0ms
+  ․ Typesquirks #compareTwoFloats should compare two small floats within Number.EXPSILON: 0ms
+  ․ Typesquirks #getObject should destructure: 0ms
+  ․ Typesquirks NumberCases isNaN: 0ms
+  ․ Typesquirks NumberCases NaN is never equal to itself: 0ms
+  ․ Typesquirks NumberCases isNaN_quirked: 0ms
+  ․ Typesquirks NumberCases -0 and +0 zeros: 0ms
+  ․ Valuesquirks #1 Scalar primitives like number are always value-copy: 0ms
+  ․ Valuesquirks #2.1 Compound values like array are always reference-copy: 1ms
+  ․ Valuesquirks #2.2 array may be shallow value-copied via slice: 0ms
+  ․ Valuesquirks #3 Variables are references, not pointers: 0ms
+  ․ Valuesquirks #4 Scalar primitive objects are immutable: 1ms
+  ․ Valuesquirks #5 null equals null and undefined equals undefined: 0ms
+  ․ Valuesquirks #6.1 use null as an empty value: 0ms
+  ․ Valuesquirks #6.2 use undefined as a missing value: 0ms
+  ․ Valuesquirks #6.3 void "voids" any value to undefined: 0ms
+  ․ Valuesquirks #7 evaluate typeness of primitive object wrappers: 0ms
+  ․ Valuesquirks #8.1 Boxing wrappers provide prototype extension functions: 0ms
+  ․ Valuesquirks #8.2 Boxing wrappers gotchas: 0ms
+  ․ Valuesquirks #8.3 Unboxing of primitive object wrappers: 1ms
+  ․ Valuesquirks #9.1 new Object()/Function()/Array()/Regex() and their equivalent literal form: 0ms
+  ․ Valuesquirks #9.2 new Date()/Error() have no equivalent literal form: 0ms
+  ․ Valuesquirks #9.3 without new they work as coercion: 0ms
+  ․ Valuesquirks #10 1/0 is Infinity: 0ms
+  ․ Varquirks #loopArrayInDelayedCallback_quirked should quirkly fetch any fetchedCast to Alex: 505ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_1_forIn should fetch any fetchedCast to it´s cast: 502ms
+  ․ Varquirks #loopArrayInDelayedCallback_fix_2_forOf should fetch any fetchedCast to it´s cast: 501ms
   ․ Varquirks #loopArrayInDelayedCallback_fix_3_forEach should fetch any fetchedCast to it´s cast: 502ms
   ․ Varquirks #loopArrayInDelayedCallback_fix_4_every should fetch any fetchedCast to it´s cast: 502ms
   ․ Varquirks #loopArrayInDelayedCallback_fix_5_IFFE should fetch any fetchedCast to it´s cast: 502ms
   ․ ZipCodeValidator #isAcceptable should accept valid american zipcode: 1ms
   ․ ZipCodeValidator #isAcceptable should not accept invalid american zipcode: 0ms
 
-  11 passing (3s)
+  79 passing (3s)
 
+File [/home/joma/entwicklung/nodews/typescript-starter/lib/main/es6/NumberConstructor.js] ignored, nothing could be mapped
 File [/home/joma/entwicklung/nodews/typescript-starter/lib/main/validation/StringValidator.js] ignored, nothing could be mapped
 ----------------------|----------|----------|----------|----------|----------------|
 File                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
@@ -129,6 +198,7 @@ All files             |      100 |      100 |      100 |      100 |             
  interfaces           |      100 |      100 |      100 |      100 |                |
   Point.ts            |      100 |      100 |      100 |      100 |                |
  quirks               |      100 |      100 |      100 |      100 |                |
+  Typesquirks.ts      |      100 |      100 |      100 |      100 |                |
   Varquirks.ts        |      100 |      100 |      100 |      100 |                |
  validation           |      100 |      100 |      100 |      100 |                |
   AllValidators.ts    |      100 |      100 |      100 |      100 |                |
