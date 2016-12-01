@@ -56,20 +56,18 @@ describe('Equalityquirks', () => {
         assert.equal(b, 42); // does b.toString() which yields "42", which is then coerced via toNumber
         assert.ok(a == b);
         assert.ok(a !== b);
-        //
-        let c: any = [42, 41];
-        // valueOf() will return the same array instance
-        assert.ok(c.valueOf() == c);
-        assert.ok(c.valueOf() === c);
     });
     it('#6.1 == object is compared via toPrimitive ', () => {
         let a: string = "abc";
         let b: any = Object(a);
+        // ES5 spec, 11.9.3.6-7 an object/function/array is compared to a simple
+        // scalar primitive (string, number, or boolean) by
+        // 1. If Type(x) is either String or Number and Type(y) is Object, return the result of the comparison x == ToPrimitive(y).
+        // 2. If Type(x) is Object and Type(y) is either String or Number, return the result of the comparison ToPrimitive(x) == y.
         assert.equal(b.valueOf(), "abc");
         assert.equal(b.toString(), "abc");
         assert.equal(a, b); // does b.toString() which yields "abc"
         assert.ok(a == b);
-        //
         assert.notStrictEqual(a, b);
         assert.ok(a !== b);
     });
@@ -92,5 +90,21 @@ describe('Equalityquirks', () => {
         assert.notEqual(a, b);
         assert.ok(a !== b);
         assert.notStrictEqual(a, b);
+    });
+    it('#7 [] == ![] Gotcha', () => {
+        let a: any = [];
+        let b: any = [];
+        assert.ok(a == !b);
+        assert.equal(Boolean(b), true); // step 1.1 an [object Array] is always true
+        assert.equal(!b, false); // step 1.2 ! negates that to false
+        // step 2.1 ES5 spec == mandates that object is compared via toPrimitive, so on left side
+        assert.equal(a.toString(), ""); // recap - what is left as of now? "" == false
+        // step 3.1 ES5 spec mandates that if Type(y) is Boolean, return the result of the comparison  x == ToNumber(y).
+        assert.equal(Number(false), 0);
+        assert.equal(Boolean(""), 0);
+        assert.equal(Boolean(""), false);
+        assert.equal("", 0); // recap - what is left as of now? "" == 0
+        assert.equal("", false);
+        assert.equal(Number(""), 0);
     });
 });
