@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Valuequirks Suite Run" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
+  <configuration default="false" name="Valuesquirks Suite Run" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
     <node-interpreter>project</node-interpreter>
     <node-options />
     <working-directory>$PROJECT_DIR$</working-directory>

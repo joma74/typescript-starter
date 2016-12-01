@@ -35,7 +35,7 @@ describe('Equalityquirks', () => {
         }
         assert.equal(passedBy, true);
     });
-    it('#4 == null or undefined are both equal ', () => {
+    it('#4 == null and undefined are both == to each other (yikes)', () => {
         let a = null;
         let b;
         // ES5 spec, 11.9.3.6-7
@@ -79,10 +79,9 @@ describe('Equalityquirks', () => {
         assert.equal(b.valueOf(), "[object Object]");
         assert.equal(b.toString(), "[object Object]");
         assert.ok(a != b); // null != {}
+        assert.notEqual(a, b);
         assert.ok(a !== b);
-        //
         assert.notStrictEqual(a, b);
-        assert.ok(a !== b);
     });
     it('#6.3 == undefined object is compared via toPrimitive', () => {
         let a: string = undefined;
@@ -90,9 +89,8 @@ describe('Equalityquirks', () => {
         assert.equal(b.valueOf(), "[object Object]");
         assert.equal(b.toString(), "[object Object]");
         assert.ok(a != b); // undefined != {}
+        assert.notEqual(a, b);
         assert.ok(a !== b);
-        //
         assert.notStrictEqual(a, b);
-        assert.ok(a !== b);
     });
 });

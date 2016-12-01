@@ -123,7 +123,7 @@ describe('Valuesquirks', () => {
         let e1 = new RegExp("^a*b+", "g");
         let e2 = /^a*b+/g;
         assert.ok("aaaaabcdef".match(e1));
-        assert.ok("aaaaabcdef".match(e1));
+        assert.ok("aaaaabcdef".match(e2));
     });
     it('#9.2 new Date()/Error() have no equivalent literal form', () => {
         let timesInMilliSecondsAsInt = new Date().getTime();
