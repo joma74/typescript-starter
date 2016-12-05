@@ -20,8 +20,9 @@ describe('CoercionQuirks#Boolean', () => {
     it('#1.5 NaN is contained in falsy list', () => {
         assert.equal(Boolean(NaN), false);
     });
-    it('#1.6 \"\" is contained in falsy list', () => {
+    it('#1.6.1 \"\" is contained in falsy list', () => {
         assert.equal(Boolean(""), false);
+        assert.equal(Boolean(""), 0);
     });
     it('#1.7 outcrossing elements of falsy list', () => {
         const isFalse : any = false; // for error TS2365: Operator '==' cannot be applied to ...
@@ -33,18 +34,18 @@ describe('CoercionQuirks#Boolean', () => {
         assert.equal("", false); // Jikes!
         assert.ok(anEmptyString == false); // Jikes! TS2365
         assert.equal("", 0); // Jikes!
-        assert.ok(anEmptyString == 0); // // Jikes! / TS2365
+        assert.ok(anEmptyString == 0); // Jikes! TS2365
         assert.equal("", Boolean(""));
         assert.equal(isFalse, false); // / TS2365
         assert.equal(false, 0);
-        assert.ok(isFalse == 0); // Jikes! 0 == 0 / TS2365
+        assert.ok(isFalse == 0); // Jikes  TS2365
         assert.equal(false, Boolean(""));
         assert.equal(Boolean(null), false);
-        assert.ok(null != false); // but null != 0 - no action for toBoolean
+        assert.ok(null != false); // no action for toBoolean
         assert.equal(Boolean(null), 0);
+        assert.ok(null != Boolean(null)); // null != 0
         assert.ok(null != 0); // no action for toBoolean
         assert.equal(Boolean(null), Boolean(null));
-        assert.ok(null != Boolean(null)); // but null != 0
     });
     it('#2 to boolean via unary operator !', () => {
         assert.equal(!!"", false); // unary ! negate operator explicitly coerces a value to a boolean. It also
@@ -79,7 +80,5 @@ describe('CoercionQuirks#Boolean', () => {
         let d = "abc";
         assert.equal(c || d, "abc");
         assert.equal(c && d, null);
-        //
-
     });
 });

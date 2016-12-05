@@ -6,7 +6,7 @@ describe('Equalityquirks', () => {
         let b: any = "42";
         assert.ok(!(a === b));
     });
-    it('#2 == string coerces to number ', () => {
+    it('#2 == string coerces to number', () => {
         let a: any = 42;
         let b: any = "42";
         // ES5 spec, clauses 11.9.3.4-5
@@ -97,14 +97,25 @@ describe('Equalityquirks', () => {
         assert.ok(a == !b);
         assert.equal(Boolean(b), true); // step 1.1 an [object Array] is always true
         assert.equal(!b, false); // step 1.2 ! negates that to false
-        // step 2.1 ES5 spec == mandates that object is compared via toPrimitive, so on left side
-        assert.equal(a.toString(), ""); // recap - what is left as of now? "" == false
-        // step 3.1 ES5 spec mandates that if Type(y) is Boolean, return the result of the comparison  x == ToNumber(y).
-        assert.equal(Number(false), 0);
-        assert.equal(Boolean(""), 0);
-        assert.equal(Boolean(""), false);
-        assert.equal("", 0); // recap - what is left as of now? "" == 0
-        assert.equal("", false);
-        assert.equal(Number(""), 0);
+        assert.equal(Number(false), 0); // step 1.3 ES5 spec mandates that If Type(y) is Boolean, return the result of
+                                        // the comparison  x == ToNumber(y).
+        assert.equal(a.toString(), ""); // step 2.1 ES5 spec mandates that If Type(x) is Object and Type(y) is either
+                                        // String or Number, return the result of the comparison ToPrimitive(x)== y
+        assert.equal(Number(""), 0);   // step 2.2 ES5 spec If Type(x) is String and Type(y) is Number, return the
+        // result of the comparison ToNumber(x)== y.
+        assert.equal(0, 0);             // step 3 -> ToNumber(ToPrimitive([])) == ToNumber(false)
+    });
+    it('#8 [null] == "" Gotcha ([] or [null] toPrimitive is always "")', () => {
+        let a: any = [null];
+        let b: any = "";
+        assert.ok(a == b); // [null] just straight becomes ""
+        //
+        let c: any = [];
+        let d: any = "";
+        assert.ok(c == d); // [] just straight becomes ""
+    });
+    it('#9 0 == "\\n" Gotcha (any whitespace toNumber is 0)', () => {
+        assert.equal(0, "\n"); // "\n" just straight becomes 0
+        assert.equal(0, "\n\t\r ");
     });
 });

@@ -136,9 +136,19 @@ describe('Valuesquirks', () => {
     it('#9.3 null/undefined have no equivalent literal form', () => {
         //The null and undefined values cannot be boxed -- they have no object wrapper equivalent -- so Object(null) is just like Object() in that both just produce a normal object.
     });
-    it('#9.3 without new they work as coercion', () => {
+    it('#9.4 without new they work as coercion', () => {
         let timesInMilliSecondsAsString = Date();
         assert.equal(typeof timesInMilliSecondsAsString, "string");
+    });
+    it('#9.5.1 Yikes, [null] toPrimitive yields straight "" (not "null")', () => {
+        assert.equal(String(null), "null"); // that was expected
+        assert.equal([null].toString(), ""); // ... but inside an array - jikes!
+        assert.equal(String([null]), "");
+        assert.equal([null, null].toString(), ",");
+    });
+    it('#9.5.2 [] toPrimitive yields straight ""', () => {
+        assert.equal([].toString(), "");
+        assert.equal(String([]), "");
     });
     it('#10 1/0 is Infinity', () => {
         let infinity = 1 / 0;
