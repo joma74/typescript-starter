@@ -1,12 +1,12 @@
 var assert = require('assert');
 
-describe('Relationalquirks', () => {
+describe('RelationalQuirks', () => {
     it('#1 a < b forces toNumber if any side is a number', () => {
         let a :any = [42];
         let b :any = ["43"];
         assert.ok(a < b);
     });
-    it('#2 a < b forces lexicographic ToPrimitive if both side are a string', () => {
+    it('#2 a < b forces lexicographic ToPrimitive if both sides are a strings', () => {
         let a :any = ["42"];
         let b :any = ["043"];
         assert.ok(a > b);

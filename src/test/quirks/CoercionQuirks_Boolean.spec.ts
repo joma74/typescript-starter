@@ -25,9 +25,9 @@ describe('CoercionQuirks#Boolean', () => {
         assert.equal(Boolean(""), 0);
     });
     it('#1.7 outcrossing elements of falsy list', () => {
-        const isFalse : any = false; // for error TS2365: Operator '==' cannot be applied to ...
-        const anEmptyString : any = ""; // for error TS2365: Operator '==' cannot be applied to ...
-        const isNull : any = null; // for error TS2365: Operator '==' cannot be applied to ...
+        const isFalse: any = false; // for error TS2365: Operator '==' cannot be applied to ...
+        const anEmptyString: any = ""; // for error TS2365: Operator '==' cannot be applied to ...
+        const isNull: any = null; // for error TS2365: Operator '==' cannot be applied to ...
         assert.equal(Boolean(""), false);
         assert.equal(Boolean(""), 0);
         assert.equal(Boolean(""), Boolean(""));
@@ -65,20 +65,46 @@ describe('CoercionQuirks#Boolean', () => {
         }
         assert.equal(passedBy, false);
     });
-    it('#4 Yikes, && and || produced value will be one of the two operand expression!', () => {
+    it('#4.1 Yikes, && and || produced value will be one of the two operand expression!', () => {
         // ES5 spec from section 11.11: The value produced by a && or || operator is not necessarily of type Boolean.
         // The value produced will always be the value of one of the two operand expressions.
         let a = 42;
-        let b = "abc";
+        let b = "foo";
         assert.equal(a || b, 42);
         assert.equal(a ? a : b, 42);
         //
-        assert.equal(a && b, "abc");
-        assert.equal(a ? b : a, "abc");
+        assert.equal(a && b, "foo");
+        assert.equal(a ? b : a, "foo");
         //
         let c = null;
-        let d = "abc";
-        assert.equal(c || d, "abc");
+        let d = "foo";
+        assert.equal(c || d, "foo");
         assert.equal(c && d, null);
+    });
+    it('#4.2 && comes handy for null parameter checks', () => {
+        function doSomething(opts: any) {
+            if (opts && opts.cool) { // else if opts is unset (or is not an object), the expression opts.cool
+                // would throw an error
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        assert.ok(doSomething({cool: true}));
+        assert.ok(!doSomething({}));
+        assert.ok(!doSomething(false));
+        assert.ok(!doSomething(0));
+        assert.ok(!doSomething(true));
+        assert.ok(!doSomething(1));
+    });
+    it('#4.3 || comes handy for default parameters', () => {
+        function doSomething(opt: number) {
+            opt = opt || 1;
+            return opt;
+        }
+
+        assert.equal(doSomething(4), 4);
+        assert.equal(doSomething(null), 1);
     });
 });

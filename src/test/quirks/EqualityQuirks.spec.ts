@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-describe('Equalityquirks', () => {
+describe('EqualityQuirks', () => {
     it('#1 === no coercion allowed', () => {
         let a: any = 42;
         let b: any = "42";

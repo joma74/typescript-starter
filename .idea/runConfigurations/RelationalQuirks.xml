@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Equalityquirks" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
+  <configuration default="false" name="RelationalQuirks" type="mocha-javascript-test-runner" factoryName="Mocha" singleton="false">
     <node-interpreter>project</node-interpreter>
     <node-options />
     <working-directory>$PROJECT_DIR$</working-directory>
@@ -8,9 +8,9 @@
     <ui>bdd</ui>
     <extra-mocha-options>--opts src/test/mocha.opts</extra-mocha-options>
     <test-kind>SUITE</test-kind>
-    <test-file>$PROJECT_DIR$/lib/test/quirks/Equalityquirks.spec.js</test-file>
+    <test-file>$PROJECT_DIR$/lib/test/quirks/RelationalQuirks.spec.js</test-file>
     <test-names>
-      <name value="Equalityquirks" />
+      <name value="RelationalQuirks" />
     </test-names>
     <method />
   </configuration>
