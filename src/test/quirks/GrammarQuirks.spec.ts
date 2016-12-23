@@ -205,4 +205,43 @@ describe('GrammarQuirks', () => {
         };
         assert.equal(foo3(), undefined);
     });
+    it('#15.1 switch to case uses === identity', () => {
+        function doSwitch(a) {
+            switch (a) {
+                case 2:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        assert.ok(doSwitch(2));
+        assert.ok(!doSwitch("2"));
+    });
+    it('#15.2 switch true and cases use == coercive equality', () => {
+        function doSwitch(a) {
+            switch (true) {
+                case a == 2:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        assert.ok(doSwitch(2));
+        assert.ok(doSwitch("2"));
+    });
+    it('#15.3 cases requires strict true result', () => {
+        function doSwitch(a) {
+            switch (true) {
+                case a:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        assert.ok(Boolean("hello world") == true);
+        assert.ok(!doSwitch("hello world"));
+    });
 });
