@@ -1,15 +1,16 @@
+import TypicodeAPI from "main/promises/TypicodeAPI";
 var assert = require('assert');
 var sinon = require('sinon');
 
 describe('Promise', () => {
     describe('#gtk sinon spy', () => {
         // http://sinonjs.org/docs/#sinonspy
-        it('#1.1 like a function, usage firstCall.args', () => {
+        it('#1.1 like a function, usage firstCall.args', sinon.test(() => {
             let spy = sinon.spy();
             spy('Hello', 'World'); //We can call a spy like a function
-            assert.deepEqual(spy.firstCall.args, ['Hello', 'World'])
-        });
-        it('#1.2 usage callCount, restore', () => {
+            assert.deepEqual(spy.firstCall.args, ['Hello', 'World']);
+        }));
+        it('#1.2 usage callCount, restore', sinon.test(() => {
             const expected1: string = 'Darth Vader';
             const expected2: string = 'Luke Skywalker';
             const expected3: string = 'Princess Leia';
@@ -39,6 +40,19 @@ describe('Promise', () => {
             sinon.assert.calledOnce(setNameSpy.withArgs(expected1));
             sinon.assert.calledOnce(setNameSpy.withArgs(expected2));
             sinon.assert.callCount(setNameSpy, 2);
+        }));
+    });
+    describe('#gtk sinon stub', () => {
+        it('#2.1 like a function, usage firstCall.args', sinon.test(() => {
+            let stub = sinon.stub();
+            stub('Hello', 'World'); //We can call a spy like a function
+            assert.deepEqual(stub.firstCall.args, ['Hello', 'World']);
+        }));
+        it('#2.2 real api call to typicode', () => {
+            return TypicodeAPI.fetchPost(1)
+                .then(r => r.json())
+                .then(data => console.log(data))
+            ;
         });
     });
 });
