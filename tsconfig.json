@@ -13,7 +13,8 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "newLine": "LF",
-    "target": "es5"
+    "target": "es5",
+    "allowJs": true
   },
   "include": [
     "**/*"
@@ -23,6 +24,8 @@
     // do not peek into node_modules for ts definitions, use typings
     "jspm_packages/**/",
     // do not peek into jspm_packages for ts definitions, use typings
-    "lib/**/"
+    "lib/**/",
+    // do not peek into coverage for js files
+    "coverage/**/"
   ]
 }
