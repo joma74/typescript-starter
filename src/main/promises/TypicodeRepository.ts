@@ -9,10 +9,17 @@ export default class TypicodeRepository {
     // only for defining existing JS APIs that define a 'new'-able function.
     public static POSTS_URL: URI_T = new URI('http://jsonplaceholder.typicode.com/posts/');
 
-    static fetchPost(id: number): Promise<Response> {
+    static getPostUrl(id: number): URI_T {
         // http://medialize.github.io/URI.js/docs.html#accessors-segment
-        let fromUrl: URI_T = TypicodeRepository.POSTS_URL.segment(id.toString());
-        return fetch(fromUrl.toString());
+        return TypicodeRepository.POSTS_URL.clone().segment(id.toString()); // Yikes, segment does alter POSTS_URL
+    }
+    static getPostUrlString(id: number): string {
+        return TypicodeRepository.getPostUrl(id).toString();
+    }
+
+    static fetchPost(id: number) {
+        let fromUrlString: string = TypicodeRepository.getPostUrlString(id)
+        return fetch(fromUrlString);
     }
 }
 

@@ -2,6 +2,7 @@ import TypicodeRepo from "main/promises/TypicodeRepository";
 import * as nfetch from "node-fetch";
 var assert = require('assert')
     , sinon = require('sinon')
+    , fs = require('fs')
     ;
 
 describe('Promise', () => {
@@ -43,20 +44,32 @@ describe('Promise', () => {
             sinon.assert.calledOnce(setNameSpy.withArgs(expected2));
             sinon.assert.callCount(setNameSpy, 2);
         }));
-        it('#1.3 spy api call to typicode', sinon.test(() => {
+        it('#1.3.1 real api call to typicode', sinon.test(() => {
+            let jsonStringExpected = fs.readFileSync(__dirname + '/assets/Post_1.json').toString();
             let postId_actual = 1;
-            let fetchSpy = sinon.spy(nfetch, "default");
-            return nfetch.default('http://jsonplaceholder.typicode.com/posts/1').then(r => {
-                return r.json()
-            }).then(data => {
-                assert.deepEqual(data, {
-                    userId: 1,
-                    id: 1,
-                    title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-                    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-                });
-                sinon.assert.callCount(fetchSpy, 1);
-            });
+            // https://jakearchibald.com/2015/thats-so-fetch/
+            return TypicodeRepo.fetchPost(postId_actual)
+                .then(r => {
+                    return r.json()
+                })
+                .then(jsonStringActual => {
+                    assert.deepEqual(jsonStringActual, JSON.parse(jsonStringExpected))
+                })
+                ;
+        }));
+        it('#1.3.2 spy api call to typicode', sinon.test(() => {
+            let jsonStringExpected = fs.readFileSync(__dirname + '/assets/Post_1.json').toString();
+            let postId_actual = 1;
+            let fetchSpy = sinon.spy(nfetch, "default"); // "fetch" of nfetch is translated to node_fetch_1.default
+            return TypicodeRepo.fetchPost(postId_actual)
+                .then(r => {
+                    return r.json()
+                })
+                .then(jsonStringActual => {
+                    assert.deepEqual(jsonStringActual, JSON.parse(jsonStringExpected));
+                    sinon.assert.calledOnce(fetchSpy.withArgs(TypicodeRepo.getPostUrlString(postId_actual)));
+                })
+                ;
         }));
     });
     describe('#gtk sinon stub', () => {
@@ -65,20 +78,6 @@ describe('Promise', () => {
             stub('Hello', 'World'); //We can call a spy like a function
             assert.deepEqual(stub.firstCall.args, ['Hello', 'World']);
         }));
-        it('#2.2 real api call to typicode', () => {
-            // https://jakearchibald.com/2015/thats-so-fetch/
-            return TypicodeRepo.fetchPost(1)
-                .then(r => {
-                    return r.json()
-                })
-                .then(data => assert.deepEqual(data, {
-                    userId: 1,
-                    id: 1,
-                    title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-                    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-                }))
-                ;
-        });
     });
 })
 ;

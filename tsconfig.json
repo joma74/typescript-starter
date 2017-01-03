@@ -26,6 +26,8 @@
     // do not peek into jspm_packages for ts definitions, use typings
     "lib/**/",
     // do not peek into coverage for js files
-    "coverage/**/"
+    "coverage/**/",
+    // ignore unused and hence untested file
+    "src/**/TypicodeRepository_old.ts"
   ]
 }
