@@ -14,7 +14,10 @@
     "forceConsistentCasingInFileNames": true,
     "newLine": "LF",
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "lib": ["es6", "dom"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "**/*"
