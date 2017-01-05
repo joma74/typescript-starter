@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DIIInversify" type="mocha-javascript-test-runner" factoryName="Mocha" nameIsGenerated="true">
+  <configuration default="false" name="DIIInversify.Basic Suite Run" type="mocha-javascript-test-runner" factoryName="Mocha">
     <node-interpreter>project</node-interpreter>
     <node-options />
     <working-directory>$PROJECT_DIR$</working-directory>
@@ -8,9 +8,9 @@
     <ui>bdd</ui>
     <extra-mocha-options>--opts src/test/mocha.opts</extra-mocha-options>
     <test-kind>SUITE</test-kind>
-    <test-file>$PROJECT_DIR$/lib/test/diinversify/basic/Container.spec.js</test-file>
+    <test-file>$PROJECT_DIR$/lib/test/diinversify/basic/DIInversify.Basic.spec.js</test-file>
     <test-names>
-      <name value="DIIInversify" />
+      <name value="DIInversify#basics" />
     </test-names>
     <method />
   </configuration>

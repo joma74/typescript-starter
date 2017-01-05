@@ -17,7 +17,7 @@ export default class TypicodeClientSettings implements ITypicodeClientSettings {
         return new URI(this.configs.typicodeClient.baseURL).normalize();
     }
 
-    ofPosts(): uri.URI {
+    ofPostsURL(): uri.URI {
         let baseURL = this.ofBaseURL().clone();
         let postsURL = baseURL.segment(this.configs.typicodeClient.postsPath).normalize();
         return postsURL;
