@@ -6,16 +6,16 @@ import {TypicodeURL} from "main/promises/TypicodeURL";
 
 export default class TypicodeRepository {
 
-    static getPostUrlTo(id: number): URI_T {
+    static getPostUrlOf(id: number): URI_T {
         // http://medialize.github.io/URI.js/docs.html#accessors-segment
         return TypicodeURL.ofPosts.clone().segment(id.toString()); // Yikes, segment does alter POSTS_URL
     }
-    static getPostUrlStringTo(id: number): string {
-        return TypicodeRepository.getPostUrlTo(id).toString();
+    static getPostUrlOfAsString(id: number): string {
+        return TypicodeRepository.getPostUrlOf(id).toString();
     }
 
     static fetchPost(id: number) {
-        let fromUrlString: string = TypicodeRepository.getPostUrlStringTo(id)
+        let fromUrlString: string = TypicodeRepository.getPostUrlOfAsString(id)
         return fetch(fromUrlString);
     }
 }

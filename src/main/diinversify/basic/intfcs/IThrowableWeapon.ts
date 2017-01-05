@@ -1,0 +1,3 @@
+interface IThrowableWeapon {
+    throw(): string;
+}

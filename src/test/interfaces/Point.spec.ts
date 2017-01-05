@@ -2,7 +2,6 @@ import {Point2D, Point3D, iTakePoint2D} from "main/interfaces/Point";
 
 var assert = require('assert');
 describe('Point', () => {
-
     describe('#iTakePoint2D', () => {
         it('should accept type Point2D', () => {
             var sutTypePoint2d: Point2D = {x: 0, y: 10};

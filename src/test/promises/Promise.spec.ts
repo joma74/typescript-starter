@@ -67,7 +67,7 @@ describe('Promise', () => {
                 })
                 .then(jsonStringActual => {
                     assert.deepEqual(jsonStringActual, JSON.parse(jsonStringExpected));
-                    sinon.assert.calledOnce(fetchSpy.withArgs(TypicodeRepo.getPostUrlStringTo(postId_actual)));
+                    sinon.assert.calledOnce(fetchSpy.withArgs(TypicodeRepo.getPostUrlOfAsString(postId_actual)));
                 })
                 ;
         }));

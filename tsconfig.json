@@ -17,13 +17,14 @@
     "allowJs": true,
     "lib": ["es6", "dom"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "types": ["reflect-metadata"]
   },
   "include": [
     "**/*"
   ],
   "exclude": [
-    "node_modules/**/",
+    "node_modules/**",
     // do not peek into node_modules for ts definitions, use typings
     "jspm_packages/**/",
     // do not peek into jspm_packages for ts definitions, use typings
