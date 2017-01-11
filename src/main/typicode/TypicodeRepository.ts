@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 // module <code>urijs</code> uses namespaces. <code>uri.URIStatic</code> is just the interface type prescribing new()
 // and static methods
 import URI_T = uri.URI;
-import {TypicodeURL} from "main/promises/TypicodeURL";
+import {TypicodeURL} from "main/typicode/TypicodeURL";
 
 export default class TypicodeRepository {
 

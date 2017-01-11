@@ -18,7 +18,7 @@
     "lib": ["es6", "dom"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": ["reflect-metadata"]
+    "types": ["reflect-metadata", "inversify-tracer"]
   },
   "include": [
     "**/*"

@@ -1,13 +1,19 @@
 {
   "name": "typescript-starter",
   "dependencies": {
-    "node-fetch": "registry:dt/node-fetch#1.6.0+20161224095027"
+    "bunyan": "registry:dt/bunyan#0.0.0+20161126172310",
+    "node-fetch": "registry:dt/node-fetch#1.6.0+20161224095027",
+    "winston": "registry:dt/winston#2.2.0+20170106144044"
   },
   "globalDevDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160926213833",
+    "chai-as-promised": "registry:dt/chai-as-promised#0.0.0+20160510010627",
     "istanbul": "registry:dt/istanbul#0.4.0+20160316155526",
     "mocha": "registry:dt/mocha#2.2.5+20161028141524",
     "node": "registry:dt/node#6.0.0+20161110151007",
+    "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160510002910",
     "sinon": "registry:dt/sinon#1.16.1+20161208163514",
     "urijs": "registry:dt/urijs#1.15.1+20161119044246"
-  }
+  },
+  "devDependencies": {}
 }

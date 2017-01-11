@@ -8,7 +8,7 @@ export default class TypicodeClientSettings implements ITypicodeClientSettings {
 
     private configs: any;
 
-    public constructor(@inject("EnvEnum") @optional() env: EnvEnum) {
+    public constructor(@inject(EnvEnum.TYPE.NAME) @optional() env: EnvEnum) {
         const envName = EnvEnum.asName(env);
         this.configs = require(`main/diinversify/configs/configuration.${envName}`).default();
     }
