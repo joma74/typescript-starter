@@ -13,7 +13,7 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "newLine": "LF",
-    "target": "es5",
+    "target": "es6",
     "allowJs": true,
     "lib": ["es6", "dom"],
     "experimentalDecorators": true,

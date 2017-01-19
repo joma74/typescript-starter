@@ -1,5 +1,5 @@
 export var fetchedCast: string[] = [];
-export var timeoutMs: number = 250;
+export var timeoutMs: number = 100;
 
 function _fetchCast(ex) {
     setTimeout(function () {

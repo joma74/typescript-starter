@@ -65,8 +65,8 @@ describe('Promise', function () {
             'doSomething ' +
             '   -> doSomethingElse ' +
             '       -> finalHandler', function () {
-            console.log("");
-            console.log(this.test.title);
+            // console.log("");
+            // console.log(this.test.title);
             let messagesACTUAL: string[] = [];
             let messagesExpected: string[] = [
                 OnPromise.messagesSth[0],
@@ -91,8 +91,8 @@ describe('Promise', function () {
             'doSomething ' +
             '   -> doSomethingOther ' +
             '   -> finalHandler', function () {
-            console.log("");
-            console.log(this.test.title);
+            // console.log("");
+            // console.log(this.test.title);
             let messagesACTUAL: string[] = [];
             let messagesExpected: string[] = [
                 OnPromise.messagesSth[0],
@@ -116,8 +116,8 @@ describe('Promise', function () {
             'doSomething ' +
             'doSomethingOther ' +
             '   -> finalHandler', function () {
-            console.log("");
-            console.log(this.test.title);
+            // console.log("");
+            // console.log(this.test.title);
             let messagesACTUAL: string[] = [];
             let messagesExpected: string[] = [
                 OnPromise.messagesSth[0],
@@ -140,8 +140,8 @@ describe('Promise', function () {
             'doSomething ' +
             '   ->doSomethingOther ' +
             '       -> finalHandler', function () {
-            console.log("");
-            console.log(this.test.title);
+            // console.log("");
+            // console.log(this.test.title);
             let messagesACTUAL: string[] = [];
             let messagesExpected: string[] = [
                 OnPromise.messagesSth[0],
@@ -159,6 +159,127 @@ describe('Promise', function () {
                     expect(messagesACTUAL).to.deep.equal(messagesExpected);
                 });
         });
+    });
+    describe('#other superb obscure behaviors', function () {
+        // https://jakearchibald.com/2014/resolve-not-opposite-of-reject/
+        //
+        // https://developers.google.com/web/fundamentals/getting-started/primers/promises
+        // Queuing asynchronous actions
+        // (1) When you return something from a then() callback, it's a bit magic. If you return a value, the next
+        // then() is called with that value. However, if you return something promise-like, the next then() waits on
+        // it, and is only called when that promise settles (succeeds/fails).
+        //
+        // (2) There's nothing special about catch(), it's just sugar for then(undefined, func), but it's more readable.
+        //
+        // (3) A catch catches every rejection/error of the then's before that catch
+        // promis1.then(promise2).then(promise3).catch(catch1)
+        // promis1 - | reject/error
+        // | suc     |
+        // promis2 - catch1
+        // | suc     |
+        // promis3 - | reject/error
+        //
+        // (4) Rejections happen when a promise is explicitly rejected, but also implicitly if an error is thrown in
+        // the constructor callback. This means it's useful to do all your promise-related work inside the promise
+        // constructor callback, so errors are automatically caught and become rejections.
+        it("#1 resolving a rejection catches", function () {
+            const reasonExpected: string = "because i want";
+            return new Promise(function (resolve) {
+                return resolve(Promise.reject(reasonExpected));
+            }).catch(function (reason) {
+                expect(reason).to.equal(reasonExpected);
+            });
+        })
+        ;
+        it("#2.1 resolving-to-undefined yields resolvement", function () {
+            const reasonExpected: any = undefined;
+            return expect(
+                new Promise(function (resolve) {
+                    return resolve(reasonExpected);
+                })
+            ).to.eventually.equal(reasonExpected);
+        })
+        ;
+        it("#2.2 but thenning with a resolved-to-undefined follows the rejection path", function () {
+            const reasonExpected: any = undefined;
+            return expect(
+                Promise.resolve(reasonExpected)
+                    .then(
+                        function () {
+                            expect.fail();
+                        },
+                        function (reason) {
+                            expect(reason).to.equal(reasonExpected);
+                        })
+            ).to.be.eventually.rejectedWith(reasonExpected);
+        })
+        ;
+        it("#3.1 a rejection path must return an rejection to yield rejection", function () {
+            const reasonExpected: any = undefined;
+            return expect(
+                Promise.reject(undefined)
+                    .then(
+                        null,
+                        function (reason) {
+                            expect(reason).to.equal(reasonExpected);
+                            return Promise.reject(reason);
+                        })
+            ).to.eventually.rejectedWith(reasonExpected);
+        })
+        ;
+        it("#3.2 a rejection path must return a resolvement to yield resolvement", function () {
+            const reasonExpected: string = "do anything with me";
+            return expect(
+                Promise.reject(reasonExpected)
+                    .then(
+                        null,
+                        function (reason) {
+                            expect(reason).to.equal(reasonExpected)
+                            return Promise.resolve(reasonExpected);
+                        })
+            ).to.eventually.equal(reasonExpected);
+        })
+        ;
+        it("#4.1 a rejection path must return a value other than undefined to yield resolvement (if it is not thenned :)", function () {
+            const reasonExpected: string = "do anything with me";
+            return expect(
+                Promise.reject(reasonExpected)
+                    .then(
+                        null,
+                        function (reason) {
+                            expect(reason).to.equal(reasonExpected)
+                            return reason;
+                        })
+            ).to.eventually.equal(reasonExpected);
+        })
+        ;
+        it("#4.2 a rejection path may return undefined to yield rejection", function () {
+            const reasonExpected: any = undefined;
+            const reasonActual: any = "Why not go crazy";
+            return expect(
+                Promise.reject(reasonActual)
+                    .then(
+                        null,
+                        function (reason) {
+                            expect(reason).to.equal(reasonActual)
+                            return reasonExpected;
+                        })
+            ).to.eventually.equal(reasonExpected);
+        })
+        ;
+        it("#4.3 a rejection path may return nothing to yield rejection with undefined", function () {
+            const reasonExpected: any = undefined;
+            const reasonActual: any = "Why not go crazy";
+            return expect(
+                Promise.reject(reasonActual)
+                    .then(
+                        null,
+                        function (reason) {
+                            expect(reason).to.equal(reasonActual);
+                        })
+            ).to.eventually.equal(reasonExpected);
+        })
+        ;
     });
 })
 ;
