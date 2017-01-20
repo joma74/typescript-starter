@@ -13,8 +13,9 @@ describe('MockServer', function () {
             let serverOptions_a = {
                 serverPort: 10080,
                 proxyPort: 10090,
-                verbose: true,
-                logDir: "./lib/test/MockServer#1"
+                verbose: false,
+                logDir: "./lib/test/mockserver/MockServer#1",
+                logConfig: "./src/test/mockserver/mockserver-logback.xml"
             };
 
             function startServer() {
@@ -82,8 +83,9 @@ describe('MockServer', function () {
             let serverOptions_b = {
                 serverPort: 20080,
                 proxyPort: 20090,
-                verbose: true,
-                logDir: "./lib/test/MockServer#2"
+                verbose: false,
+                logDir: "./lib/test/mockserver/MockServer#2",
+                logConfig: "./src/test/mockserver/mockserver-logback.xml"
             };
 
             const messageExpected = "connect ECONNREFUSED 127.0.0.1:20080";
