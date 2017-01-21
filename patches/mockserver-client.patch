@@ -1,0 +1,16 @@
+diff -ru node_modules/mockserver-client/index.js node_modules/mockserver-client-priv/index.js
+--- node_modules/mockserver-client/index.js	2015-10-06 00:48:11.000000000 +0200
++++ node_modules/mockserver-client-priv/index.js	2017-01-21 00:15:08.000000000 +0100
+@@ -34,6 +34,13 @@
+ 
+         var req = http.request(options);
+ 
++/*        req.on('socket', function (socket) {
++            socket.setTimeout(250);
++            socket.on('timeout', function() {
++                req.abort();
++            });
++        });*/
++
+         req.once('response', function (response) {
+             var data = '';

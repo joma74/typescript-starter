@@ -1,0 +1,142 @@
+diff -ru node_modules/mockserver-grunt/downloadJar.js node_modules/mockserver-grunt-priv/downloadJar.js
+--- node_modules/mockserver-grunt/downloadJar.js	2015-04-10 08:46:40.000000000 +0200
++++ node_modules/mockserver-grunt-priv/downloadJar.js	2017-01-21 00:08:50.000000000 +0100
+@@ -9,7 +9,7 @@
+ (function () {
+     "use strict";
+ 
+-    function downloadJar(version) {
++    function downloadJar(version, verbose) {
+         var Q = require('q');
+         var deferred = Q.defer();
+         var https = require('https');
+@@ -27,23 +27,23 @@
+             console.log('Found duplicate versions of MockServer jar');
+             currentMockServerJars.forEach(function (item) {
+                 fs.unlinkSync(item);
+-                console.log('Deleted ' + item);
++                verbose && console.log('Deleted ' + item);
+             });
+             currentMockServerJars.splice(0);
+         }
+ 
+         if (currentMockServerJars.length === 0) {
+-            console.log('Fetching ' + JSON.stringify(options));
++            verbose && console.log('Fetching ' + JSON.stringify(options));
+             var req = https.request(options);
+ 
+             req.once('error', function (error) {
+-                console.error('Fetching ' + JSON.stringify(options) + ' failed with error ' + error);
++                verbose && console.error('Fetching ' + JSON.stringify(options) + ' failed with error ' + error);
+                 deferred.reject(new Error('Fetching ' + JSON.stringify(options) + ' failed with error ' + error));
+             });
+ 
+             req.once('response', function (res) {
+                 if (res.statusCode < 200 || res.statusCode >= 300) {
+-                    console.error('Fetching ' + JSON.stringify(options) + ' failed with HTTP status code ' + res.statusCode);
++                    verbose && console.error('Fetching ' + JSON.stringify(options) + ' failed with HTTP status code ' + res.statusCode);
+                     deferred.reject(new Error('Fetching ' + JSON.stringify(options) + ' failed with HTTP status code ' + res.statusCode));
+                 }
+ 
+@@ -51,18 +51,18 @@
+                 res.pipe(writeStream);
+ 
+                 writeStream.on('error', function (error) {
+-                    console.error('Saving ' + dest + ' failed with error ' + error);
++                    verbose && console.error('Saving ' + dest + ' failed with error ' + error);
+                     deferred.reject(new Error('Saving ' + dest + ' failed with error ' + error));
+                 });
+                 writeStream.on('close', function () {
+-                    console.log('Saved ' + dest + ' from ' + JSON.stringify(options));
++                    verbose && console.log('Saved ' + dest + ' from ' + JSON.stringify(options));
+                     deferred.resolve();
+                 });
+             });
+ 
+             req.end();
+         } else {
+-            console.log('Skipping ' + JSON.stringify(options) + ' as file already downloaded');
++            verbose && console.log('Skipping ' + JSON.stringify(options) + ' as file already downloaded');
+             deferred.resolve();
+         }
+ 
+diff -ru node_modules/mockserver-grunt/index.js node_modules/mockserver-grunt-priv/index.js
+--- node_modules/mockserver-grunt/index.js	2016-10-09 11:04:10.000000000 +0200
++++ node_modules/mockserver-grunt-priv/index.js	2017-01-21 00:08:50.000000000 +0100
+@@ -76,8 +76,8 @@
+             });
+         });
+ 
+-        req.once('error', function () {
+-            deferred.resolve();
++        req.once('error', function (error) {
++           return deferred.resolve(error);
+         });
+ 
+         req.end();
+@@ -109,6 +109,10 @@
+         };
+ 
+         var req = http.request(request, callback);
++
++        req.once("error", function(err){
++            return deferred.reject(err);
++        });
+         req.end();
+ 
+         return deferred.promise;
+@@ -124,7 +128,7 @@
+         var startupRetries = 100; // wait for 10 seconds
+ 
+         // double check the jar has already been downloaded
+-        require('./downloadJar').downloadJar('3.10.4').then(function () {
++        require('./downloadJar').downloadJar('3.10.4', options.verbose).then(function () {
+ 
+             var spawn = require('child_process').spawn;
+             var glob = require('glob');
+@@ -136,6 +140,12 @@
+             } else {
+                 commandLineOptions.push('-Dmockserver.logLevel=WARN');
+             }
++            if (options.logDir) {
++                commandLineOptions.push('-Dlog.dir=' + options.logDir);
++            }
++            if(options.logConfig) {
++                commandLineOptions.push('-Dlogback.configurationFile=' + options.logConfig);
++            }
+             if (options.javaDebugPort) {
+                 commandLineOptions.push('-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=' + options.javaDebugPort);
+                 startupRetries = 500;
+@@ -145,12 +155,12 @@
+             if (options.serverPort) {
+                 commandLineOptions.push("-serverPort");
+                 commandLineOptions.push(options.serverPort);
+-                port = port || options.serverPort;
++                port = options.serverPort || port; // @TODO report
+             }
+             if (options.proxyPort) {
+                 commandLineOptions.push("-proxyPort");
+                 commandLineOptions.push(options.proxyPort);
+-                port = port || options.proxyPort;
++                port = options.proxyPort || port; // @TODO report
+             }
+             if (options.proxyRemotePort) {
+                 commandLineOptions.push("-proxyRemotePort");
+@@ -175,7 +185,7 @@
+                 port: port
+             }, startupRetries, deferred, options.verbose);
+         }, function (error) {
+-            deferred.reject(error);
++            return deferred.reject(error);
+         });
+ 
+         return deferred.promise;
+@@ -205,6 +215,8 @@
+                 path: "/reset",
+                 port: port
+             }, 100, deferred, options && options.verbose); // wait for 10 seconds
++        }).catch(function(error){
++            return deferred.reject(error);
+         });
+         return deferred.promise;
+     }
