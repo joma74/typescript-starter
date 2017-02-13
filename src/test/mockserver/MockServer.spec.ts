@@ -13,7 +13,7 @@ describe('MockServer', function () {
             let serverOptions_a = {
                 serverPort: 10080,
                 proxyPort: 10090,
-                verbose: false,
+                verbose: true,
                 logDir: "./lib/test/mockserver/MockServer#1",
                 logConfig: "./src/test/mockserver/mockserver-logback.xml"
             };
@@ -83,7 +83,7 @@ describe('MockServer', function () {
             let serverOptions_b = {
                 serverPort: 20080,
                 proxyPort: 20090,
-                verbose: false,
+                verbose: true,
                 logDir: "./lib/test/mockserver/MockServer#2",
                 logConfig: "./src/test/mockserver/mockserver-logback.xml"
             };
